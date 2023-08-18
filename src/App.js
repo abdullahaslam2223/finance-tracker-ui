@@ -6,11 +6,14 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import PublicRoutes from "./utils/PublicRoutes";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <BrowserRouter>
       <div>
+        <ToastContainer />
           {/* <div className="header">
             <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/">Home</NavLink>
             <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/login">Login</NavLink><small>(Access without token only)</small>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setUserSession } from '../utils/common';
 import { API_BASE_URL } from '../config';
+import { toast } from 'react-toastify';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -12,7 +13,6 @@ function Login() {
     const navigate = useNavigate();
     const email = useFormInput('');
     const password = useFormInput('');
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const postData = {
       email: email.value,
@@ -21,17 +21,18 @@ function Login() {
 
     const handleLogin = (e) => {
       e.preventDefault();
-      setError(null);
       setLoading(true);
       axios.post(API_BASE_URL + 'login', postData).then(response => {
         const res = response.data;
         setLoading(false);
         setUserSession(res.data.token, res.data.user);
+        toast.success("Logged in successfully!");
         navigate('/dashboard');
       }).catch(error => {
+        const res = error.response.data;
         setLoading(false);
-        // setError(error?.message || "Something went wrong. Please try again later.");
-        setError("Invalid Cradentials");
+        console.log(res);
+        toast.error(res.message || "Something went wrong. Please try again later.");
       });
     }
 
@@ -39,10 +40,16 @@ function Login() {
       <>
         <h1 className='text-center mt-5'>Finance Tracker</h1>
         <Container className="d-flex justify-content-center mt-5">
-          <Form className='w-50'>
+          <Form className='w-50' onSubmit={handleLogin}>
             <Form.Group className='mb-3' controlId='loginEmail'>
               <Form.Label>Email Address</Form.Label>
-              <Form.Control type='email' {...email} autoComplete="new-password" placeholder='Enter Email' />
+              <Form.Control
+                type='email'
+                required
+                {...email}
+                autoComplete="new-password"
+                placeholder='Enter Email'
+              />
               <Form.Text className='text-muted'>
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -50,11 +57,16 @@ function Login() {
 
             <Form.Group className="mb-3" controlId="loginPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" {...password} autoComplete="new-password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                required
+                {...password}
+                autoComplete="new-password"
+                placeholder="Password"
+              />
             </Form.Group>
 
-            {error && <><small className='text-danger'>{error}</small><br /></>}<br />
-            <Button variant="success" type="submit" onClick={handleLogin} disabled={loading}>
+            <Button variant="success" type="submit" disabled={loading}>
               {loading ? 'Loading...' : 'Login'}
             </Button>
           </Form>
