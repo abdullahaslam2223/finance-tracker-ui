@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import PublicRoutes from "./utils/PublicRoutes";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
   return (
@@ -18,8 +20,12 @@ function App() {
             <Routes>
               <Route path="*" element={<NotFound />} />
               <Route index element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route element={<PublicRoutes />}>
+                <Route path="/login" element={<Login />} />
+              </Route>
+              <Route element={<PrivateRoutes />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+              </Route>
             </Routes>
           </div>
       </div>
