@@ -36,27 +36,30 @@ function Login() {
     }
 
     return (
-      <Container className="d-flex justify-content-center mt-5">
-        <Form className='w-50'>
-          <Form.Group className='mb-3' controlId='loginEmail'>
-            <Form.Label>Email Address</Form.Label>
-            <Form.Control type='email' {...email} autoComplete="new-password" placeholder='Enter Email' />
-            <Form.Text className='text-muted'>
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
+      <>
+        <h1 className='text-center mt-5'>Finance Tracker</h1>
+        <Container className="d-flex justify-content-center mt-5">
+          <Form className='w-50'>
+            <Form.Group className='mb-3' controlId='loginEmail'>
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control type='email' {...email} autoComplete="new-password" placeholder='Enter Email' />
+              <Form.Text className='text-muted'>
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="loginPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" {...password} autoComplete="new-password" placeholder="Password" />
-          </Form.Group>
+            <Form.Group className="mb-3" controlId="loginPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" {...password} autoComplete="new-password" placeholder="Password" />
+            </Form.Group>
 
-          {error && <><small className='text-danger'>{error}</small><br /></>}<br />
-          <Button variant="success" type="submit" onClick={handleLogin} disabled={loading}>
-            {loading ? 'Loading...' : 'Login'}
-          </Button>
-        </Form>
-      </Container>
+            {error && <><small className='text-danger'>{error}</small><br /></>}<br />
+            <Button variant="success" type="submit" onClick={handleLogin} disabled={loading}>
+              {loading ? 'Loading...' : 'Login'}
+            </Button>
+          </Form>
+        </Container>
+      </>
       );
 }
 

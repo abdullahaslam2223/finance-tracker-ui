@@ -11,11 +11,11 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-          <div className="header">
+          {/* <div className="header">
             <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/">Home</NavLink>
             <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/login">Login</NavLink><small>(Access without token only)</small>
             <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/dashboard">Dashboard</NavLink><small>(Access with token only)</small>
-          </div>
+          </div> */}
           <div className="content">
             <Routes>
               <Route path="*" element={<NotFound />} />
