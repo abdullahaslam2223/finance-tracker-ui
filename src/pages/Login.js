@@ -32,7 +32,7 @@ function Login() {
         const res = error.response.data;
         setLoading(false);
         console.log(res);
-        toast.error(res.message || "Something went wrong. Please try again later.");
+        toast.error(res.data.error || "Something went wrong. Please try again later.");
       });
     }
 
