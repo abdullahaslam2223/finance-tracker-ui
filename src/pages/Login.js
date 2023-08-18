@@ -4,6 +4,10 @@ import axios from 'axios';
 import { setUserSession } from '../utils/common';
 import { API_BASE_URL } from '../config';
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
+
 function Login() {
     const navigate = useNavigate();
     const email = useFormInput('');
@@ -15,7 +19,8 @@ function Login() {
       password: password.value
     }
 
-    const handleLogin = () => {
+    const handleLogin = (e) => {
+      e.preventDefault();
       setError(null);
       setLoading(true);
       axios.post(API_BASE_URL + 'login', postData).then(response => {
@@ -31,19 +36,27 @@ function Login() {
     }
 
     return (
-        <div>
-          Login<br /><br />
-          <div>
-            Email<br />
-            <input type="text" {...email} autoComplete="new-password" />
-          </div>
-          <div style={{ marginTop: 10 }}>
-            Password<br />
-            <input type="password" {...password} autoComplete="new-password" />
-          </div>
-          {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-          <input type="button" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} /><br />
-        </div>
+      <Container className="d-flex justify-content-center mt-5">
+        <Form className='w-50'>
+          <Form.Group className='mb-3' controlId='loginEmail'>
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control type='email' {...email} autoComplete="new-password" placeholder='Enter Email' />
+            <Form.Text className='text-muted'>
+              We'll never share your email with anyone else.
+            </Form.Text>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="loginPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" {...password} autoComplete="new-password" placeholder="Password" />
+          </Form.Group>
+
+          {error && <><small className='text-danger'>{error}</small><br /></>}<br />
+          <Button variant="success" type="submit" onClick={handleLogin} disabled={loading}>
+            {loading ? 'Loading...' : 'Login'}
+          </Button>
+        </Form>
+      </Container>
       );
 }
 
