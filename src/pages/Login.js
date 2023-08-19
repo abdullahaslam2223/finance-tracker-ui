@@ -31,7 +31,6 @@ function Login() {
       }).catch(error => {
         const res = error.response.data;
         setLoading(false);
-        console.log(res);
         toast.error(res.data.error || "Something went wrong. Please try again later.");
       });
     }

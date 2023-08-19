@@ -9,6 +9,11 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import Transactions from "./pages/Transactions";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getToken } from "./utils/common";
+
+export const headers = {
+  'Authorization': 'Bearer ' + getToken()
+}
 
 function App() {
   return (
