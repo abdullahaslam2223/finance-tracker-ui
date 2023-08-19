@@ -1,6 +1,14 @@
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 function Home() {
+    const navigate = useNavigate();
+
     return(
-        <h1>Welcome to Home Page!</h1>
+        <div>
+            <h1>Welcome to Home Page!</h1>
+            Go ahead and <Button onClick={() => navigate('/login')}>Login</Button>
+        </div>
     );
 }
 
