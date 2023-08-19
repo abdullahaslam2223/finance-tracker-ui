@@ -5,7 +5,7 @@ import { API_BASE_URL } from '../config';
 import { toast } from 'react-toastify';
 import { headers } from '../App';
 import { FaTrash, FaTimes } from 'react-icons/fa';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 import Loader from '../components/Loader';
 import '../styles/transactions.css';
 
@@ -114,16 +114,39 @@ function Transactions() {
                     striped
                     highlightOnHover
                 />
-        }
-
-      {/* Modal */}
+            }
             <Modal show={showModal} onHide={closeModal}>
                 <Modal.Header>
-                <Modal.Title>My Modal</Modal.Title>
+                <Modal.Title>Add Transaction</Modal.Title>
                 <FaTimes className="icon-close" style={{cursor: "pointer"}} onClick={closeModal} />
                 </Modal.Header>
                 <Modal.Body>
-                    This is the content of the modal. You can define and use it in the same component.
+                <Form className='w-75'>
+                    <Form.Group className='mb-3' controlId='loginEmail'>
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control
+                            type='text'
+                            required
+                            // {...email}
+                            // autoComplete="new-password"
+                            // placeholder='Enter Email'
+                        />
+                        {/* <Form.Text className='text-muted'>
+                            We'll never share your email with anyone else.
+                        </Form.Text> */}
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="loginPassword">
+                        <Form.Label>Amount</Form.Label>
+                        <Form.Control
+                            type="number"
+                            required
+                            // {...password}
+                            autoComplete="new-password"
+                            // placeholder="Password"
+                        />
+                    </Form.Group>
+                </Form>
                 </Modal.Body>
                 <Modal.Footer>
                 {/* Button to close the modal */}
