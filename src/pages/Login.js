@@ -39,8 +39,8 @@ function Login() {
     return (
       <>
         <h1 className='text-center mt-5'>Finance Tracker</h1>
-        <Container className="d-flex justify-content-center mt-5">
-          <Form className='w-50' onSubmit={handleLogin}>
+        <Container className="d-flex justify-content-center mt-5 bg-light w-25 shadow" style={{padding: "100px 0"}}>
+          <Form className='w-75' onSubmit={handleLogin}>
             <Form.Group className='mb-3' controlId='loginEmail'>
               <Form.Label>Email Address</Form.Label>
               <Form.Control
@@ -50,9 +50,9 @@ function Login() {
                 autoComplete="new-password"
                 placeholder='Enter Email'
               />
-              <Form.Text className='text-muted'>
+              {/* <Form.Text className='text-muted'>
                 We'll never share your email with anyone else.
-              </Form.Text>
+              </Form.Text> */}
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="loginPassword">

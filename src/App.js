@@ -6,7 +6,8 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import PublicRoutes from "./utils/PublicRoutes";
 import PrivateRoutes from "./utils/PrivateRoutes";
-import { toast, ToastContainer } from 'react-toastify';
+import Transactions from "./pages/Transactions";
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
               </Route>
               <Route element={<PrivateRoutes />}>
                 <Route path="/dashboard" element={<Dashboard />} />
+              </Route>
+              <Route element={<PrivateRoutes />}>
+                <Route path="/transactions" element={<Transactions />} />
               </Route>
             </Routes>
           </div>
