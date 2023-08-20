@@ -4,9 +4,9 @@ import axios from 'axios';
 import { API_BASE_URL } from '../config';
 import { toast } from 'react-toastify';
 import { headers } from '../App';
-import { FaTrash, FaTimes } from 'react-icons/fa';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { FaTrash } from 'react-icons/fa';
 import Loader from '../components/Loader';
+import TransactionModal from '../components/TransactionModal';
 import '../styles/transactions.css';
 
 function Transactions() {
@@ -17,7 +17,7 @@ function Transactions() {
     useEffect(() => {
         getAllTransaction();
     }, []);
-    
+
     const getAllTransaction = () => {
         setLoading(true);
         axios.get(API_BASE_URL + 'transaction', { headers: headers }).then(response => {
@@ -25,7 +25,7 @@ function Transactions() {
             setLoading(false);
             setTransactions(res.data);
         }).catch(error => {
-            const res = error.response.data;
+            // const res = error.response.data;
             setLoading(false);
             toast.error("Something went wrong!");
         });
@@ -55,10 +55,6 @@ function Transactions() {
     const openModal = () => {
         setShowModal(true);
       };
-    
-    const closeModal = () => {
-        setShowModal(false);
-    };
 
     const columns = [
         {
@@ -115,46 +111,8 @@ function Transactions() {
                     highlightOnHover
                 />
             }
-            <Modal show={showModal} onHide={closeModal}>
-                <Modal.Header>
-                <Modal.Title>Add Transaction</Modal.Title>
-                <FaTimes className="icon-close" style={{cursor: "pointer"}} onClick={closeModal} />
-                </Modal.Header>
-                <Modal.Body>
-                <Form className='w-75'>
-                    <Form.Group className='mb-3' controlId='loginEmail'>
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control
-                            type='text'
-                            required
-                            // {...email}
-                            // autoComplete="new-password"
-                            // placeholder='Enter Email'
-                        />
-                        {/* <Form.Text className='text-muted'>
-                            We'll never share your email with anyone else.
-                        </Form.Text> */}
-                    </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="loginPassword">
-                        <Form.Label>Amount</Form.Label>
-                        <Form.Control
-                            type="number"
-                            required
-                            // {...password}
-                            autoComplete="new-password"
-                            // placeholder="Password"
-                        />
-                    </Form.Group>
-                </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                {/* Button to close the modal */}
-                <Button variant="success" onClick={closeModal}>
-                    Add
-                </Button>
-                </Modal.Footer>
-            </Modal>
+            <TransactionModal showModal={showModal} setShowModal={setShowModal} />
         </div>
     ); 
 }

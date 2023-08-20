@@ -4,6 +4,7 @@ import axios from 'axios';
 import { setUserSession } from '../utils/common';
 import { API_BASE_URL } from '../config';
 import { toast } from 'react-toastify';
+import { useFormInput } from '../utils/common';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -73,17 +74,5 @@ function Login() {
       </>
       );
 }
-
-const useFormInput = initialValue => {
-    const [value, setValue] = useState(initialValue);
-   
-    const handleChange = e => {
-      setValue(e.target.value);
-    }
-    return {
-      value,
-      onChange: handleChange
-    }
-  }
 
 export default Login;
