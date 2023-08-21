@@ -109,14 +109,15 @@ function Transactions() {
     return(
             
             <div className='container'>
-                <div className="d-flex justify-content-end">
-                    <button className="btn btn-success mb-1" onClick={openModal}>Add Transaction</button>
+                <div className="d-flex justify-content-between">
+                    <h3>All Transactions</h3>
+                    <button className="btn btn-success mb-1 align-self-end" onClick={openModal}>Add Transaction</button>
                 </div>
             {loading ? (
                 <Loader />
             ) :
                 <DataTable
-                    title="All Transactions"
+                    // title="All Transactions"
                     className='transaction-table shadow'
                     columns={columns}
                     data={transactions}

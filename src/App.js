@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Navbar from "./components/Navbar";
 import PublicRoutes from "./utils/PublicRoutes";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import Transactions from "./pages/Transactions";
@@ -20,11 +21,13 @@ function App() {
     <BrowserRouter>
       <div>
         <ToastContainer />
-          {/* <div className="header">
-            <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/">Home</NavLink>
+          {/* <div className="header"> */}
+          <div>
+            <Navbar />
+            {/* <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/">Home</NavLink>
             <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/login">Login</NavLink><small>(Access without token only)</small>
-            <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/dashboard">Dashboard</NavLink><small>(Access with token only)</small>
-          </div> */}
+            <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/dashboard">Dashboard</NavLink><small>(Access with token only)</small> */}
+          </div>
           <div className="content">
             <Routes>
               <Route path="*" element={<NotFound />} />

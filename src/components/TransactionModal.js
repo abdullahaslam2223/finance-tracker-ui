@@ -42,7 +42,8 @@ function TransactionModal({showModal, setShowModal, transactions, setTransaction
         setShowModal(false);
     };
 
-    const handleTransaction = () => {
+    const handleTransaction = (e) => {
+        e.preventDefault();
         addTransaction();
         setShowModal(false);
     }
@@ -53,12 +54,12 @@ function TransactionModal({showModal, setShowModal, transactions, setTransaction
 
     return (
         <Modal show={showModal} onHide={closeModal}>
+            <Form onSubmit={handleTransaction}>
             <Modal.Header>
                 <Modal.Title>Add Transaction</Modal.Title>
                 <FaTimes className="icon-close" style={{cursor: "pointer"}} onClick={closeModal} />
             </Modal.Header>
             <Modal.Body>
-                <Form>
                     <Form.Group className='mb-3' controlId='transactionName'>
                         <Form.Label>Name</Form.Label>
                         <Form.Control
@@ -115,14 +116,13 @@ function TransactionModal({showModal, setShowModal, transactions, setTransaction
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-
-                </Form>
             </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success" onClick={handleTransaction}>
+                    <Button type="submit" variant="success">
                         Add
                     </Button>
                 </Modal.Footer>
+                </Form>
             </Modal>
     );
 
