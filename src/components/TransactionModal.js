@@ -3,6 +3,9 @@ import CategoryDropdown from "./CategoryDropdown";
 import { FaTimes } from "react-icons/fa";
 import { useFormInput } from "../utils/common";
 import axios from "axios";
+import { API_BASE_URL } from '../utils/config';
+import { headers } from "../App";
+import { toast } from "react-toastify";
 
 import {
     Modal,
@@ -10,9 +13,6 @@ import {
     Form,
     Dropdown
 } from 'react-bootstrap';
-import { API_BASE_URL } from "../config";
-import { headers } from "../App";
-import { toast } from "react-toastify";
 
 function TransactionModal({showModal, setShowModal, transactions, setTransactions}) {
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -30,8 +30,8 @@ function TransactionModal({showModal, setShowModal, transactions, setTransaction
     const addTransaction = () => {
         axios.post(API_BASE_URL + "transaction", postData, { headers: headers }).then(response => {
             const res = response.data;
-            // const newTransactions = [...transactions, res.data];
-            // setTransactions(newTransactions);
+            const newTransactions = [res.data, ...transactions];
+            setTransactions(newTransactions);
             toast.success("Transaction successfully added!");
         }).catch(error => {
             toast.error("Unable to add transaction!");
@@ -46,10 +46,6 @@ function TransactionModal({showModal, setShowModal, transactions, setTransaction
         addTransaction();
         setShowModal(false);
     }
-
-    const handleCategorySelect = (category) => {
-        setSelectedCategory(category);
-    };
 
     const handleTypeSelect = (type) => {
         setSelectedType(type);
@@ -78,7 +74,7 @@ function TransactionModal({showModal, setShowModal, transactions, setTransaction
                     </Form.Group>
 
                     <CategoryDropdown
-                        onCategorySelect={handleCategorySelect}
+                        selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}
                     />
 
                     <Form.Group className="mb-3" controlId="transactionAmount">

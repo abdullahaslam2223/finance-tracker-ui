@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import axios from 'axios';
-import { API_BASE_URL } from '../config';
+import { API_BASE_URL } from '../utils/config';
 import { toast } from 'react-toastify';
 import { headers } from '../App';
 import { FaTrash } from 'react-icons/fa';

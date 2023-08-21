@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { Dropdown, FormControl } from 'react-bootstrap';
-import { API_BASE_URL } from "../config";
+import { API_BASE_URL } from '../utils/config';
 import axios from "axios";
 import { headers } from "../App";
 import { toast } from "react-toastify";
 
-function CategoryDropdown({ onCategorySelect }) {
+function CategoryDropdown({ selectedCategory, setSelectedCategory }) {
     const [categories, setCategories] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredCategories, setFilteredCategories] = useState(categories);
-    const [selectedCategory, setSelectedCategory] = useState(null);
 
     useEffect(() => {
       getAllCategories();
@@ -40,7 +39,6 @@ function CategoryDropdown({ onCategorySelect }) {
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
-        onCategorySelect(category);
         setSearchQuery('');
         setFilteredCategories(categories);
     };
@@ -55,7 +53,7 @@ function CategoryDropdown({ onCategorySelect }) {
           paddingLeft: '10px',
           backgroundColor: '#dae0e5',
           marginBottom: "8px",
-          boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.5)'}}
+          boxShadow: '0px 0px 1px rgba(0, 0, 0, 0.5)'}}
           >
           {selectedCategory ? selectedCategory.name : 'Select Category'}
           </Dropdown.Toggle>
