@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { headers } from '../App';
 import { FaTrash } from 'react-icons/fa';
 import Loader from '../components/Loader';
+import moment from 'moment';
 import TransactionModal from '../components/TransactionModal';
 import '../styles/transactions.css';
 
@@ -56,6 +57,19 @@ function Transactions() {
         setShowModal(true);
       };
 
+    function formatTime(inputDate) {
+        const now = moment();
+        const inputMoment = moment(inputDate);
+        
+        if (now.isSame(inputMoment, 'day')) {
+            return `Today ${inputMoment.format('h:mm a')}`;
+        } else if (now.subtract(1, 'day').isSame(inputMoment, 'day')) {
+            return `Yesterday ${inputMoment.format('h:mm a')}`;
+        } else {
+            return inputMoment.format('D MMMM h:mm a');
+        }
+    }
+
     const columns = [
         {
             name: 'Name',
@@ -74,7 +88,7 @@ function Transactions() {
         },
         {
             name: 'Date',
-            selector: row => row.date,
+            selector: row => formatTime(row.date),
             sortable: true,
         },
         {
