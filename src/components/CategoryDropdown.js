@@ -20,7 +20,6 @@ function CategoryDropdown({ onCategorySelect }) {
       axios.get(API_BASE_URL + 'category', { headers: headers }).then(response => {
           const res = response.data;
           // setLoading(false);
-          console.log(categories);
           setCategories(res.data);
           setFilteredCategories(res.data);
       }).catch(error => {

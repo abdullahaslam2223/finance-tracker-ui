@@ -2,6 +2,7 @@ import { useState } from "react";
 import CategoryDropdown from "./CategoryDropdown";
 import { FaTimes } from "react-icons/fa";
 import { useFormInput } from "../utils/common";
+import axios from "axios";
 
 import {
     Modal,
@@ -9,15 +10,32 @@ import {
     Form,
     Dropdown
 } from 'react-bootstrap';
+import { API_BASE_URL } from "../config";
+import { headers } from "../App";
+import { toast } from "react-toastify";
 
-function TransactionModal({showModal, setShowModal}) {
+function TransactionModal({showModal, setShowModal, transactions, setTransactions}) {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedType, setSelectedType] = useState(0);
     const transactionName = useFormInput('');
     const transactionAmount = useFormInput('');
 
+    const postData = {
+        name: transactionName.value,
+        category_id: selectedCategory?.id,
+        amount: transactionAmount.value,
+        is_income: selectedType[0]
+    }
+
     const addTransaction = () => {
-        
+        axios.post(API_BASE_URL + "transaction", postData, { headers: headers }).then(response => {
+            const res = response.data;
+            // const newTransactions = [...transactions, res.data];
+            // setTransactions(newTransactions);
+            toast.success("Transaction successfully added!");
+        }).catch(error => {
+            toast.error("Unable to add transaction!");
+        });
     }
 
     const closeModal = () => {
@@ -25,6 +43,7 @@ function TransactionModal({showModal, setShowModal}) {
     };
 
     const handleTransaction = () => {
+        addTransaction();
         setShowModal(false);
     }
 

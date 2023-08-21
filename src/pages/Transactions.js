@@ -112,7 +112,7 @@ function Transactions() {
                 />
             }
 
-            <TransactionModal showModal={showModal} setShowModal={setShowModal} />
+            <TransactionModal showModal={showModal} setShowModal={setShowModal} transactions={transactions} setTransactions={setTransactions} />
         </div>
     ); 
 }
