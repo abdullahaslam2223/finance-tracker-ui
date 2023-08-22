@@ -5,11 +5,12 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
+import Transactions from "./pages/Transactions";
+import Categories from "./pages/Categories";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import PublicRoutes from "./utils/PublicRoutes";
 import PrivateRoutes from "./utils/PrivateRoutes";
-import Transactions from "./pages/Transactions";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getToken, getUser } from "./utils/common";
@@ -50,6 +51,9 @@ function App() {
                 </Route>
                 <Route element={<PrivateRoutes />}>
                   <Route path="/transactions" element={<Transactions />} />
+                </Route>
+                <Route element={<PrivateRoutes />}>
+                  <Route path="/categories" element={<Categories />} />
                 </Route>
               </Routes>
             </div>

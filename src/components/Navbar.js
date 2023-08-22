@@ -37,6 +37,9 @@ function Navbar() {
                 <NavLink className="nav-link" to="/transactions" activeClassName="active">Transactions</NavLink>
               </li>
               <li className="nav-item">
+                <NavLink className="nav-link" to="/categories" activeClassName="active">Categories</NavLink>
+              </li>
+              <li className="nav-item">
                 <NavLink className="nav-link" to="/logout" activeClassName="active">Logout</NavLink>
               </li>
             </>
