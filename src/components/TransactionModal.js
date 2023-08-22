@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import CategoryDropdown from "./CategoryDropdown";
 import { FaTimes } from "react-icons/fa";
 import { useFormInput } from "../utils/common";
 import axios from "axios";
 import { API_BASE_URL } from '../utils/config';
-import { headers } from "../App";
 import { toast } from "react-toastify";
+import { AuthContext } from "../App";
+import { getTokenHeader } from "../utils/common";
 
 import {
     Modal,
@@ -15,6 +16,9 @@ import {
 } from 'react-bootstrap';
 
 function TransactionModal({showModal, setShowModal, transactions, setTransactions}) {
+    const { token } = useContext(AuthContext);
+    const headers = getTokenHeader(token);
+
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedType, setSelectedType] = useState(0);
     const transactionName = useFormInput('');

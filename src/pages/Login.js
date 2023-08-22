@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { setUserSession } from '../utils/common';
 import { API_BASE_URL } from '../utils/config';
 import { toast } from 'react-toastify';
 import { useFormInput } from '../utils/common';
+import { AuthContext } from '../App';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
 function Login() {
+    const { setToken, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const email = useFormInput('');
     const password = useFormInput('');
@@ -27,6 +29,8 @@ function Login() {
         const res = response.data;
         setLoading(false);
         setUserSession(res.data.token, res.data.user);
+        setToken(res.data.token);
+        setUser(res.data.user);
         toast.success("Logged in successfully!");
         navigate('/dashboard');
       }).catch(error => {

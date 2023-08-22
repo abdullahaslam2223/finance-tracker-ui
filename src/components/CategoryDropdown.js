@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Dropdown, FormControl } from 'react-bootstrap';
 import { API_BASE_URL } from '../utils/config';
 import axios from "axios";
-import { headers } from "../App";
 import { toast } from "react-toastify";
+import { AuthContext } from "../App";
+import { getTokenHeader } from "../utils/common";
 
 function CategoryDropdown({ selectedCategory, setSelectedCategory }) {
+    const { token } = useContext(AuthContext);
+    const headers = getTokenHeader(token);
     const [categories, setCategories] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredCategories, setFilteredCategories] = useState(categories);

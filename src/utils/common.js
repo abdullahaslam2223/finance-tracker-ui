@@ -35,3 +35,7 @@ export const useFormInput = initialValue => {
     onChange: handleChange
   }
 }
+
+export const getTokenHeader = (token) => {
+  return { 'Authorization': 'Bearer ' + token };
+}

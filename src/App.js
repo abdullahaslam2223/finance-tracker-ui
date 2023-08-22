@@ -1,3 +1,4 @@
+import { useState, createContext } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
 import Login from "./pages/Login";
@@ -10,41 +11,47 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import Transactions from "./pages/Transactions";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getToken } from "./utils/common";
+import { getToken, getUser } from "./utils/common";
+
+export const AuthContext = createContext();
 
 export const headers = {
   'Authorization': 'Bearer ' + getToken()
 }
 
 function App() {
+  const [token, setToken] = useState(getToken());
+  const [user, setUser] = useState(getUser());
   return (
-    <BrowserRouter>
-      <div>
-        <ToastContainer />
-          {/* <div className="header"> */}
-          <div>
-            <Navbar />
-            {/* <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/">Home</NavLink>
-            <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/login">Login</NavLink><small>(Access without token only)</small>
-            <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/dashboard">Dashboard</NavLink><small>(Access with token only)</small> */}
-          </div>
-          <div className="content">
-            <Routes>
-              <Route path="*" element={<NotFound />} />
-              <Route index element={<Home />} />
-              <Route element={<PublicRoutes />}>
-                <Route path="/login" element={<Login />} />
-              </Route>
-              <Route element={<PrivateRoutes />}>
-                <Route path="/dashboard" element={<Dashboard />} />
-              </Route>
-              <Route element={<PrivateRoutes />}>
-                <Route path="/transactions" element={<Transactions />} />
-              </Route>
-            </Routes>
-          </div>
-      </div>
-    </BrowserRouter>
+    <AuthContext.Provider value={{ token, setToken, user, setUser }}>
+      <BrowserRouter>
+        <div>
+          <ToastContainer />
+            {/* <div className="header"> */}
+            <div>
+              <Navbar />
+              {/* <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/">Home</NavLink>
+              <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/login">Login</NavLink><small>(Access without token only)</small>
+              <NavLink className={({ isActive }) => isActive ? 'active' : ''} to="/dashboard">Dashboard</NavLink><small>(Access with token only)</small> */}
+            </div>
+            <div className="content">
+              <Routes>
+                <Route path="*" element={<NotFound />} />
+                <Route index element={<Home />} />
+                <Route element={<PublicRoutes />}>
+                  <Route path="/login" element={<Login />} />
+                </Route>
+                <Route element={<PrivateRoutes />}>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                </Route>
+                <Route element={<PrivateRoutes />}>
+                  <Route path="/transactions" element={<Transactions />} />
+                </Route>
+              </Routes>
+            </div>
+        </div>
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
 

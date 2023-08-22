@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import DataTable from 'react-data-table-component';
 import axios from 'axios';
 import { API_BASE_URL } from '../utils/config';
 import { toast } from 'react-toastify';
-import { headers } from '../App';
+import { getTokenHeader } from '../utils/common';
 import { FaTrash } from 'react-icons/fa';
 import Loader from '../components/Loader';
 import moment from 'moment';
 import TransactionModal from '../components/TransactionModal';
+import { AuthContext } from '../App';
 import '../styles/transactions.css';
 
 function Transactions() {
+    const { token } = useContext(AuthContext);
+    const headers = getTokenHeader(token);
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
