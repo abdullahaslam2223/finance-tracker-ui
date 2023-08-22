@@ -6,8 +6,7 @@ function Home() {
 
     return(
         <div>
-            <h1>Welcome to Home Page!</h1>
-            Go ahead and <Button onClick={() => navigate('/login')}>Login</Button>
+            <h1 className="text-center">Welcome to Home Page!</h1>
         </div>
     );
 }
