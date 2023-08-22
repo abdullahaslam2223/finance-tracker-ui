@@ -1,25 +1,10 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { removeUserSession } from "../utils/common";
 import { AuthContext } from "../App";
 
 function Dashboard(props) {
-    const { user, setUser, setToken } = useContext(AuthContext);
-    const navigate = useNavigate();
-    
-    const handleLogout = () => {
-      removeUserSession();
-      setUser(null);
-      setToken(null);
-      navigate('/login');
-    }
+    const { user } = useContext(AuthContext);
 
-    return(
-    <div>
-      Welcome {user.name}!<br /><br />
-      <input type="button" onClick={handleLogout} value="Logout" />
-    </div>
-    );
+    return <h3 className="text-center mt-3">Welcome { user.name } on Dashboard</h3>;
 }
 
 export default Dashboard;

@@ -2,6 +2,7 @@ import { useState, createContext } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -40,6 +41,9 @@ function App() {
                 <Route index element={<Home />} />
                 <Route element={<PublicRoutes />}>
                   <Route path="/login" element={<Login />} />
+                </Route>
+                <Route element={<PrivateRoutes />}>
+                  <Route path="/logout" element={<Logout />} />
                 </Route>
                 <Route element={<PrivateRoutes />}>
                   <Route path="/dashboard" element={<Dashboard />} />
