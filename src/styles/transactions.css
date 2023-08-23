@@ -1,29 +1,2 @@
 /* Transactions.js */
 
-.transaction-table {
-    border: 1px solid #ccc;
-    padding: 20px;
-}
-
-.rdt_TableHead {
-    background-color: #f0f0f0;
-    font-weight: bold;
-}
-
-.rdt_TableRow {
-    background-color: #fff;
-}
-  
-.rdt_TableCell {
-    padding: 8px;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-/* .bsxMp {
-    text-align: center;
-} */

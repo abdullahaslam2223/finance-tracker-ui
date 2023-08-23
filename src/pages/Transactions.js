@@ -9,7 +9,7 @@ import Loader from '../components/Loader';
 import moment from 'moment';
 import TransactionModal from '../components/TransactionModal';
 import { AuthContext } from '../App';
-import '../styles/transactions.css';
+// import '../styles/transactions.css';
 
 function Transactions() {
     const { token } = useContext(AuthContext);
