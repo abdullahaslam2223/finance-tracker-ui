@@ -62,7 +62,7 @@ const options = {
 
 const ExpenseChart = () => {
     return (
-      <div className='container'>
+      <div className='container shadow'>
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
     );
