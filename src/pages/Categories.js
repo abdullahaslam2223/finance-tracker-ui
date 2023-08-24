@@ -13,6 +13,7 @@ import {
 import DataTable from "react-data-table-component";
 import Loader from "../components/Loader";
 import { FaTrash } from "react-icons/fa";
+import CategoryModal from "../components/CategoryModal";
 import '../styles/data-table.css';
 
 function Categories() {
@@ -20,7 +21,7 @@ function Categories() {
     const headers = getTokenHeader(token);
     const { state, dispatch } = useContext(CategoryContext);
 
-    const [categoryData, setCategoryData] = useState(null);
+    const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -29,10 +30,11 @@ function Categories() {
 
     const handleAddCategory = async (newCategory) => {
         try {
-          const addedCategory = await addCategory(newCategory);
+          const addedCategory = await addCategory(newCategory, headers);
           dispatch({ type: 'ADD_CATEGORY', payload: addedCategory });
+          toast.success("Category added successfully");
         } catch (error) {
-          // Handle the error
+          toast.error("Error in adding category");
         }
     };
 
@@ -41,7 +43,7 @@ function Categories() {
         axios.get(API_BASE_URL + 'category', { headers: headers }).then(response => {
             const res = response.data;
             setLoading(false);
-            setCategoryData(res.data);
+            dispatch({ type: 'FETCH_DATA_SUCCESS', payload: res.data });
         }).catch(error => {
             // const res = error.response.data;
             setLoading(false);
@@ -50,14 +52,22 @@ function Categories() {
     }
 
     const handleDeleteCategory = async (categoryId) => {
-        console.log("cate");
-        try {
-          await deleteCategory(categoryId, headers);
-          dispatch({ type: 'DELETE_CATEGORY', payload: categoryId });
-        } catch (error) {
-          // Handle the error
+        const userConfirm = window.confirm("Are you sure, you want to delete category?");
+        if(userConfirm) {
+            try {
+                const response = await deleteCategory(categoryId, headers);
+                dispatch({ type: 'DELETE_CATEGORY', payload: categoryId });
+                console.log(state.data);
+                toast.success(response.message || "Category Delete Successfully!");
+            } catch (error) {
+                toast.error("Please first delete transactions related to this category!");
+            }
         }
     };
+
+    const openModal = () => {
+        setShowModal(true);
+    }
 
     const columns = [
         {
@@ -86,23 +96,30 @@ function Categories() {
     ];
 
     return(
-        <div>
-            <h1 className="text-center">All Categories</h1>
+        <div className="container">
+            <div className="d-flex justify-content-between">
+                <h3>All Transactions</h3>
+                <button className="btn btn-success mb-1 align-self-end" onClick={openModal}>Add Category</button>
+            </div>
             {
                 loading ? (
                     <Loader />
                 ) : (
-                    categoryData && 
+                    state.data && 
                         <DataTable
                             className='transaction-table shadow'
                             columns={columns}
-                            data={categoryData}
+                            data={state.data}
                             pagination
                             striped
                             highlightOnHover
                         />
                     
                 )
+            }
+
+            {showModal &&
+                <CategoryModal showModal={showModal} setShowModal={setShowModal} handleAddCategory={handleAddCategory} />
             }
         </div>
     )

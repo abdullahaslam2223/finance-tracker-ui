@@ -1,7 +1,7 @@
 const categoryReducer = (state, action) => {
     switch (action.type) {
       case 'ADD_CATEGORY':
-        return { ...state, data: [...state.data, action.payload] };
+        return { data: [...state.data, action.payload] };
   
       case 'UPDATE_CATEGORY':
         return {
@@ -15,6 +15,12 @@ const categoryReducer = (state, action) => {
         return {
           ...state,
           data: state.data.filter((category) => category.id !== action.payload),
+        };
+
+      case 'FETCH_DATA_SUCCESS':
+          return {
+            ...state,
+            data: action.payload, // Return data from the action
         };
   
       default:

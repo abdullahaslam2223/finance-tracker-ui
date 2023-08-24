@@ -5,9 +5,7 @@ export const CategoryContext = createContext();
 
 export const CategoryProvider = ({ children }) => {
         const initialState = {
-        success: true,
-        data: [],
-        message: 'Categories retrieved successfully.',
+        data: []
     };
 
     const [state, dispatch] = useReducer(categoryReducer, initialState);
