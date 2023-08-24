@@ -5,7 +5,6 @@ const categoryReducer = (state, action) => {
   
       case 'UPDATE_CATEGORY':
         return {
-          ...state,
           data: state.data.map((category) =>
             category.id === action.payload.id ? action.payload : category
           ),
@@ -13,14 +12,12 @@ const categoryReducer = (state, action) => {
   
       case 'DELETE_CATEGORY':
         return {
-          ...state,
           data: state.data.filter((category) => category.id !== action.payload),
         };
 
       case 'FETCH_DATA_SUCCESS':
           return {
-            ...state,
-            data: action.payload, // Return data from the action
+            data: action.payload,
         };
   
       default:

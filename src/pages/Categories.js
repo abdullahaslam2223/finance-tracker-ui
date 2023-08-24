@@ -14,6 +14,7 @@ import DataTable from "react-data-table-component";
 import Loader from "../components/Loader";
 import { FaTrash } from "react-icons/fa";
 import CategoryModal from "../components/CategoryModal";
+import BudgetBar from "../components/BudgetBar";
 import '../styles/data-table.css';
 
 function Categories() {
@@ -97,8 +98,10 @@ function Categories() {
 
     return(
         <div className="container">
+            <BudgetBar amount={5000} totalAmount={30000} />
+
             <div className="d-flex justify-content-between">
-                <h3>All Transactions</h3>
+                <h3>All Categories</h3>
                 <button className="btn btn-success mb-1 align-self-end" onClick={openModal}>Add Category</button>
             </div>
             {

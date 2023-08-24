@@ -1,0 +1,42 @@
+/* Style.js */
+
+/* Budget Bar Styles */
+
+/* styles.css (or your preferred CSS file) */
+.amount-card {
+  max-width: 400px;
+  margin: 0 auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.amount-card .card-title {
+  background-color: #343a40;
+  color: #fff;
+  padding: 10px;
+  border-radius: 15px 15px 0 0;
+}
+
+.amount-card .card-body {
+  padding: 20px;
+}
+
+.amount-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Customize the progress bar colors */
+.amount-card .progress-bar {
+  background-color: #4caf50; /* Green for success */
+}
+
+.amount-card .progress-bar-warning {
+  background-color: #ffc107; /* Yellow for warning */
+}
+
+.amount-card .progress-bar-danger {
+  background-color: #f44336; /* Red for danger */
+}
+
+  

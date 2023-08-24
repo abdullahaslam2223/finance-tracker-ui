@@ -15,6 +15,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getToken, getUser } from "./utils/common";
 import { CategoryProvider } from "./utils/contexts/CategoryContext";
+import "./styles/style.css";
 
 export const AuthContext = createContext();
 

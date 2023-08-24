@@ -9,6 +9,7 @@ import Loader from '../components/Loader';
 import moment from 'moment';
 import TransactionModal from '../components/TransactionModal';
 import { AuthContext } from '../App';
+import BudgetBar from '../components/BudgetBar';
 // import '../styles/transactions.css';
 
 function Transactions() {
@@ -112,6 +113,8 @@ function Transactions() {
     return(
             
             <div className='container'>
+                <BudgetBar amount={25000} totalAmount={30000} />
+
                 <div className="d-flex justify-content-between">
                     <h3>All Transactions</h3>
                     <button className="btn btn-success mb-1 align-self-end" onClick={openModal}>Add Transaction</button>
