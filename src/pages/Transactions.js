@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useReducer } from 'react';
 import DataTable from 'react-data-table-component';
 import axios from 'axios';
 import { API_BASE_URL } from '../utils/config';
@@ -11,8 +11,10 @@ import TransactionModal from '../components/TransactionModal';
 import { AuthContext } from '../App';
 import { TransactionContext } from '../utils/contexts/TransactionContext';
 import BudgetBar from '../components/BudgetBar';
+import budgetReducer from '../utils/reducers/budgetReducer';
 
 function Transactions() {
+    const [budgetState, budgetDispatch] = useReducer(budgetReducer, {data: []});
     const { token } = useContext(AuthContext);
     const { state, dispatch } = useContext(TransactionContext);
     const headers = getTokenHeader(token);
@@ -21,6 +23,7 @@ function Transactions() {
 
     useEffect(() => {
         getAllTransaction();
+        getBudget();
     }, []);
 
     const getAllTransaction = () => {
@@ -35,6 +38,18 @@ function Transactions() {
             toast.error("Something went wrong!");
         });
     }
+
+    const getBudget = () => {
+        setLoading(true);
+        axios.get(API_BASE_URL + 'budget', { headers }).then(Response => {
+          setLoading(false);
+          const res = Response.data;
+          budgetDispatch({type: 'FETCH_DATA', payload: res.data});
+        }).catch(error => {
+          setLoading(false);
+          toast.error('something went wrong in fetching budget!');
+        });
+      }
 
     const handleDelete = (id) => {
         const userConfirmed = window.confirm('Are you sure you want to delete this item?');
@@ -113,7 +128,7 @@ function Transactions() {
     return(
             
             <div className='container'>
-                <BudgetBar amount={25000} totalAmount={30000} />
+                <BudgetBar state={budgetState.data} />
 
                 <div className="d-flex justify-content-between">
                     <h3>All Transactions</h3>
@@ -132,7 +147,7 @@ function Transactions() {
                 />
             }
 
-            <TransactionModal showModal={showModal} setShowModal={setShowModal} state={state} dispatch={dispatch} />
+            <TransactionModal showModal={showModal} setShowModal={setShowModal} dispatch={dispatch} budgetDispatch={budgetDispatch} />
         </div>
     ); 
 }

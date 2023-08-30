@@ -98,7 +98,7 @@ function Categories() {
 
     return(
         <div className="container">
-            <BudgetBar />
+            {/* <BudgetBar /> */}
 
             <div className="d-flex justify-content-between">
                 <h3>All Categories</h3>

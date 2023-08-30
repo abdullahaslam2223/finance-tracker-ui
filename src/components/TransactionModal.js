@@ -15,7 +15,7 @@ import {
     Dropdown
 } from 'react-bootstrap';
 
-function TransactionModal({showModal, setShowModal, dispatch}) {
+function TransactionModal({showModal, setShowModal, dispatch, budgetDispatch}) {
     const { token } = useContext(AuthContext);
     const headers = getTokenHeader(token);
 
@@ -36,6 +36,7 @@ function TransactionModal({showModal, setShowModal, dispatch}) {
             const res = response.data;
             console.log("Res.data", res.data);
             dispatch({type: 'ADD_TRANSACTION', payload: res.data});
+            !res.data?.is_income && budgetDispatch({type: 'ADD_TRANSACTION_IN_BUDGET', payload: res.data?.amount});
             toast.success("Transaction successfully added!");
         }).catch(error => {
             toast.error("Unable to add transaction!");
