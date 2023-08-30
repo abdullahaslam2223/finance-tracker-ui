@@ -1,7 +1,7 @@
 const categoryReducer = (state, action) => {
     switch (action.type) {
       case 'ADD_CATEGORY':
-        return { data: [...state.data, action.payload] };
+        return { data: [action.payload, ...state.data] };
   
       case 'UPDATE_CATEGORY':
         return {

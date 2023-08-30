@@ -9,13 +9,13 @@ import Loader from '../components/Loader';
 import moment from 'moment';
 import TransactionModal from '../components/TransactionModal';
 import { AuthContext } from '../App';
+import { TransactionContext } from '../utils/contexts/TransactionContext';
 import BudgetBar from '../components/BudgetBar';
-// import '../styles/transactions.css';
 
 function Transactions() {
     const { token } = useContext(AuthContext);
+    const { state, dispatch } = useContext(TransactionContext);
     const headers = getTokenHeader(token);
-    const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
@@ -28,7 +28,7 @@ function Transactions() {
         axios.get(API_BASE_URL + 'transaction', { headers: headers }).then(response => {
             const res = response.data;
             setLoading(false);
-            setTransactions(res.data);
+            dispatch({type: 'FETCH_DATA', payload: res.data});
         }).catch(error => {
             // const res = error.response.data;
             setLoading(false);
@@ -48,7 +48,7 @@ function Transactions() {
         axios.delete(API_BASE_URL + 'transaction/' + id, { headers: headers }).then(response => {
             const res = response.data;
             setLoading(false);
-            setTransactions(res.data);
+            dispatch({type: 'DELETE_TRANSACTION', payload: id});
             toast.success("Transaction deleted successfully");
         }).catch(error => {
             const res = error.response.data;
@@ -121,19 +121,18 @@ function Transactions() {
                 </div>
             {loading ? (
                 <Loader />
-            ) :
+            ) : 
                 <DataTable
-                    // title="All Transactions"
-                    className='transaction-table shadow'
-                    columns={columns}
-                    data={transactions}
-                    pagination
-                    striped
-                    highlightOnHover
+                className='transaction-table shadow'
+                columns={columns}
+                data={state.data}
+                pagination
+                striped
+                highlightOnHover
                 />
             }
 
-            <TransactionModal showModal={showModal} setShowModal={setShowModal} transactions={transactions} setTransactions={setTransactions} />
+            <TransactionModal showModal={showModal} setShowModal={setShowModal} state={state} dispatch={dispatch} />
         </div>
     ); 
 }

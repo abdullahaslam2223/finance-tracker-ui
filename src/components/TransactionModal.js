@@ -15,7 +15,7 @@ import {
     Dropdown
 } from 'react-bootstrap';
 
-function TransactionModal({showModal, setShowModal, transactions, setTransactions}) {
+function TransactionModal({showModal, setShowModal, dispatch}) {
     const { token } = useContext(AuthContext);
     const headers = getTokenHeader(token);
 
@@ -34,8 +34,8 @@ function TransactionModal({showModal, setShowModal, transactions, setTransaction
     const addTransaction = () => {
         axios.post(API_BASE_URL + "transaction", postData, { headers: headers }).then(response => {
             const res = response.data;
-            const newTransactions = [res.data, ...transactions];
-            setTransactions(newTransactions);
+            console.log("Res.data", res.data);
+            dispatch({type: 'ADD_TRANSACTION', payload: res.data});
             toast.success("Transaction successfully added!");
         }).catch(error => {
             toast.error("Unable to add transaction!");
@@ -70,12 +70,8 @@ function TransactionModal({showModal, setShowModal, transactions, setTransaction
                             type='text'
                             required
                             {...transactionName}
-                            // autoComplete="new-password"
                             placeholder='e.g Buy Apples'
                         />
-                        {/* <Form.Text className='text-muted'>
-                            We'll never share your email with anyone else.
-                        </Form.Text> */}
                     </Form.Group>
 
                     <CategoryDropdown
