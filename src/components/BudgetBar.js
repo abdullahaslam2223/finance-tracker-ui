@@ -1,11 +1,7 @@
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import { ProgressBar, Card } from 'react-bootstrap';
 import { AuthContext } from '../App';
 import { getTokenHeader } from '../utils/common';
-import axios from 'axios';
-import { API_BASE_URL } from '../utils/config';
-import { toast } from 'react-toastify';
-import Loader from './Loader';
 
 function BudgetBar({ state }) {
   const { token } = useContext(AuthContext);

@@ -7,14 +7,14 @@ import { toast } from "react-toastify";
 import { CategoryContext } from "../utils/contexts/CategoryContext";
 import {
     addCategory,
-    updateCategory,
+    // updateCategory,
     deleteCategory
 } from "../utils/api-routes.js/categoryRoutes";
 import DataTable from "react-data-table-component";
 import Loader from "../components/Loader";
 import { FaTrash } from "react-icons/fa";
 import CategoryModal from "../components/CategoryModal";
-import BudgetBar from "../components/BudgetBar";
+// import BudgetBar from "../components/BudgetBar";
 import '../styles/data-table.css';
 
 function Categories() {

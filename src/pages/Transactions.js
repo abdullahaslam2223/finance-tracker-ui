@@ -61,12 +61,12 @@ function Transactions() {
     const deleteTransaction = (id) => {
         setLoading(true);
         axios.delete(API_BASE_URL + 'transaction/' + id, { headers: headers }).then(response => {
-            const res = response.data;
+            // const res = response.data;
             setLoading(false);
             dispatch({type: 'DELETE_TRANSACTION', payload: id});
             toast.success("Transaction deleted successfully");
         }).catch(error => {
-            const res = error.response.data;
+            // const res = error.response.data;
             setLoading(false);
             toast.error("Unable to delete!");
         })
