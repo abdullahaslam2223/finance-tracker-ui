@@ -5,7 +5,7 @@ import { getTokenHeader } from '../utils/common';
 
 function BudgetBar({ state }) {
   const { token } = useContext(AuthContext);
-  const headers = getTokenHeader(token);
+  // const headers = getTokenHeader(token);
   // const [amount, setAmount] = useState(0);
   // const [totalAmount, setTotalAmount] = useState(0);
   // const [loading, setLoading] = useState(false);
